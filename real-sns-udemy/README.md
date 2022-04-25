@@ -1,9 +1,17 @@
+# Dependencies
+
+```
+ npm i express mongoose nodemon helmet
+ npm install
+ npm i dotenv
+```
+
 # SNS
 
-| client / react | server / node.js | database / mongoDB |
-| -------------- | ---------------- | ------------------ |
-|                | postman          | mongoose           |
-|                |                  |                    |
+| client / react | server / node.js / API | database / mongoDB |
+| -------------- | ---------------------- | ------------------ |
+|                | postman                | mongoose           |
+|                |                        |                    |
 
 # Refactoring
 
@@ -23,7 +31,9 @@
 | models/User.js |                                  | module.exports = mongoose.model('User', UserSchema) |
 | routes/auth.js | User = require('../models/User') |                                                     |
 
-# mongoDB
+# mongoDB / JSON
+
+## mySQL, postageSQL needs set up SQL code / データ構造
 
 | client / react | server / node.js | database / mongoDB |
 | -------------- | ---------------- | ------------------ |
