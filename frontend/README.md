@@ -10,8 +10,8 @@ npm install @mui/icons-material
 
 | client / react | server / node.js / API | database / mongoDB |
 | -------------- | ---------------------- | ------------------ |
-|                | postman                | mongoose           |
-|                |                        |                    |
+|                | postman / axios        | mongoose           |
+| axios          |                        |                    |
 
 # VScode Extention: ES7+ React/Redux/React-Native
 
