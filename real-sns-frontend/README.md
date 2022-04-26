@@ -1,9 +1,46 @@
+# Dependencies
+
+```
+npm install @mui/material @emotion/react @emotion/styled
+npm install @mui/material @mui/styled-engine-sc styled-components
+npm install @mui/icons-material
+```
+
 # Real SNS
 
 | client / react | server / node.js / API | database / mongoDB |
 | -------------- | ---------------------- | ------------------ |
 |                | postman                | mongoose           |
 |                |                        |                    |
+
+# VScode Extention: ES7+ React/Redux/React-Native
+
+- rfc
+
+```
+import React from 'react'
+
+export default function Home() {
+  return (
+    <div>Home</div>
+  )
+}
+```
+
+- rface
+
+```
+import React from 'react'
+
+const Home = () => {
+  return (
+    <div>Home</div>
+  )
+}
+
+export default Home
+
+```
 
 # Getting Started with Create React App
 
