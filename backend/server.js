@@ -5,7 +5,10 @@ const userRoute = require('./routes/users');
 const authRoute = require('./routes/auth');
 const postRoute = require('./routes/posts');
 
-const PORT = 3000;
+const PORT = 5000;
+// import axios in Frontend
+// frontend/package.json setup
+// "proxy": "http://localhost:5000/api"
 
 const mongoose = require('mongoose');
 

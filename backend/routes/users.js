@@ -46,14 +46,30 @@ router.delete('/:id', async (req, res) => {
 });
 
 // User Read / test at postman RealSns GET USER
-router.get('/:id', async (req, res) => {
+// router.get('/:id', async (req, res) => {
+//   try {
+//     // mongoose Document at .findById
+//     // https://mongoosejs.com/docs/api.html#model_Model.findById
+//     const user = await User.findById(req.params.id);
+//     const { password, updatedAt, ...other } = user._doc; // this is Destructuring assignment / 分割代入
+//     // we don't need password and updatedAt data, cos protect security
+//     return res.status(200).json(other);
+//   } catch (err) {
+//     return res.status(500).json(err);
+//   }
+// });
+
+// Get user information by query / クエリでユーザー情報取得
+router.get('/', async (req, res) => {
+  const userId = req.query.userId; // this userId is abcdefg(this is query) from http://url..../.../.../...?userId=abcdefg
+  const username = req.query.username; // this username is 123abc(this is query) from http://url..../.../.../...?username=123abc
   try {
-    // mongoose Document at .findById
-    // https://mongoosejs.com/docs/api.html#model_Model.findById
-    const user = await User.findById(req.params.id);
-    const { password, updatedAt, ...other } = user._doc; // this is Destructuring assignment / 分割代入
-    // we don't need password and updatedAt data, cos protect security
-    res.status(200).json(other);
+    const user = userId
+      ? await User.findById(userId) // if there are userId, find user using by userId // Error user.findById(userId) !!!!! User.findById(userId) 大文字 小文字 要注意 !!!!!!
+      : await User.findOne({ username: username }); // if there are not userId, find user using by username
+
+    const { password, updatedAt, ...other } = user._doc;
+    return res.status(200).json(other);
   } catch (err) {
     return res.status(500).json(err);
   }

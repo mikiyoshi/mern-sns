@@ -82,11 +82,25 @@ router.put('/:id/like', async (req, res) => {
   }
 });
 
+// get profile timeline
+router.get('/profile/:username', async (req, res) => {
+  try {
+    const user = await User.findOne({ username: req.params.username });
+    const posts = await Post.find({ userId: user._id });
+    return res.status(200).json(posts);
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+});
+
 // get timeline / test at postman RealSns LIKE POST
-router.get('/timeline/all', async (req, res) => {
+router.get('/timeline/:userId', async (req, res) => {
+  // :userId is random id / 任意のid
+  // update '/timeline/:userId' connect frontend from '/timeline/all'
   // why use /timeline/all?  if use only /timeline, we can't define /timeline or /:id
   try {
-    const currentUser = await User.findById(req.body.userId); // get this user
+    // const currentUser = await User.findById(req.body.userId); // get this user get a data from '/timeline/all'
+    const currentUser = await User.findById(req.params.userId); // get this user get a data from '/timeline/:userId'
     const userPosts = await Post.find({ userId: currentUser._id }); // get this user's all post
     // get followers all posts
     const friendPosts = await Promise.all(

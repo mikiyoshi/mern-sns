@@ -4,6 +4,23 @@
 npm install @mui/material @emotion/react @emotion/styled
 npm install @mui/material @mui/styled-engine-sc styled-components
 npm install @mui/icons-material
+npm i react-router-dom
+npm i axios
+```
+
+[React Router DOM](https://v5.reactrouter.com/web/guides/quick-start)
+
+```
+npm i react-router-dom
+```
+
+# axios
+
+- package.json setup
+  - "proxy": "http:localhost:5000/api"
+
+```
+npm i axios
 ```
 
 # Real SNS
