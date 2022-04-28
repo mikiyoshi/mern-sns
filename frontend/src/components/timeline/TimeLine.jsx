@@ -1,5 +1,6 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { AuthContext } from '../../state/AuthContext';
 import Post from '../post/Post';
 import Share from '../share/Share';
 import './TimeLine.css';
@@ -9,17 +10,19 @@ export default function TimeLine({ username }) {
   // get backend
   const [posts, setPosts] = useState([]);
 
+  const { user } = useContext(AuthContext); // Global Auth
+
   useEffect(() => {
     const fetchPosts = async () => {
       // username の post があれば表示する、なければ全て表示
       const response = username
-        ? await axios.get(`/posts/profile/${username}`)
-        : await axios.get('/posts/timeline/62657f2c2101d4a8b995e88c'); // 62657f2c2101d4a8b995e88c is from mongoDB realsns > users > Nick _id:
+        ? await axios.get(`/posts/profile/${username}`) // if there are username = profile page プロフィールページの場合
+        : await axios.get(`/posts/timeline/${user._id}`); // 62657f2c2101d4a8b995e88c is from mongoDB realsns > users > Nick _id:  This is Home page ホームページの場合
       console.log('Timeline.jsx: ', response); // Promise {} < this error is waiting, we need await async in frontend  //  Promise {} はデータを受け取っている待ち時間を表示するエラー
       setPosts(response.data);
     };
     fetchPosts();
-  }, [username]);
+  }, [username, user._id]); // username, user._id どちらが変更されても更新される
 
   // !important error, await async in frontend // よくある間違い
   // useEffect can't add async, we need function for it, then Promise error is gone // useEffect には直接 await async 追加できない！関数を追加してを await async つけると、Promise 状態を回避できる

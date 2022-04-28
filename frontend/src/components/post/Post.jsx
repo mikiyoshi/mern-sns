@@ -1,11 +1,12 @@
 import { MoreVert } from '@mui/icons-material';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import './Post.css';
 // import { Users } from '../../dummyData';
 
 import { format } from 'timeago.js';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../state/AuthContext';
 
 export default function Post({ post }) {
   const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER; // add public folder root
@@ -22,6 +23,8 @@ export default function Post({ post }) {
   // get from backend
   const [user, setUser] = useState({});
 
+  const { user: currentUser } = useContext(AuthContext);
+
   useEffect(() => {
     const fetchUser = async () => {
       // const response = await axios.get(`/users/${post.userId}`); // this post of ${post.userId} 投稿したユーザーのユーザーId is props, props from Timeline.jsx at <Post post={post} key={post.id} />, post is posts.map((post), posts is my post and following posts, following post has userId at /backend/models/Post.js, userId is post userId
@@ -35,7 +38,13 @@ export default function Post({ post }) {
   }, [post.userId]);
   // if useEffect(() => {}, []) only one time, useEffect(() => {}, [post.userId]) is when post.userId update rendering
 
-  const handleLike = () => {
+  const handleLike = async () => {
+    try {
+      // get from API /routes/post.js like
+      await axios.put(`/posts/${post._id}/like`, { userId: currentUser._id });
+    } catch (err) {
+      console.log(err);
+    }
     // ハートの画像を押すと like が 0 like か 1 like の表示がされる
     setLike(isLiked ? like - 1 : like + 1); // if already clicked like = like -1, not clicked like = like +1
     setIsLiked(!isLiked); // 押されると isLiked に true を更新する
@@ -48,8 +57,10 @@ export default function Post({ post }) {
             <Link to={`/profile/${user.username}`}>
               <img
                 src={
-                  // PUBLIC_FOLDER + Users.filter((user) => user.id === post.id)[0].profilePicture // post.id is get from map function which was in Timeline.js at Posts.map((post)
-                  user.profilePicture || PUBLIC_FOLDER + '/person/noAvatar.png' // post.id is get from map function which was in Timeline.js at Posts.map((post)
+                  user.profilePicture
+                    ? // PUBLIC_FOLDER + Users.filter((user) => user.id === post.id)[0].profilePicture // post.id is get from map function which was in Timeline.js at Posts.map((post)
+                      PUBLIC_FOLDER + user.profilePicture
+                    : PUBLIC_FOLDER + '/person/noAvatar.png' // post.id is get from map function which was in Timeline.js at Posts.map((post)
                 }
                 alt=""
                 className="postProfileImg"

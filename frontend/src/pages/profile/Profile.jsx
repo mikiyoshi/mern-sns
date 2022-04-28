@@ -31,7 +31,6 @@ export default function Profile() {
             <div className="profileCover">
               <img
                 // src={PUBLIC_FOLDER + '/post/3.jpeg'}
-
                 src={
                   user.coverPicture || PUBLIC_FOLDER + '/post/3.jpeg' // post.id is get from map function which was in Timeline.js at Posts.map((post)
                 }
@@ -43,7 +42,8 @@ export default function Profile() {
 
                 src={
                   // PUBLIC_FOLDER + Users.filter((user) => user.id === post.id)[0].profilePicture // post.id is get from map function which was in Timeline.js at Posts.map((post)
-                  user.profilePicture || PUBLIC_FOLDER + '/person/noAvatar.png' // post.id is get from map function which was in Timeline.js at Posts.map((post)
+                  PUBLIC_FOLDER + user.profilePicture ||
+                  PUBLIC_FOLDER + '/person/noAvatar.png' // post.id is get from map function which was in Timeline.js at Posts.map((post)
                 }
                 alt=""
                 className="profileUserImg"
