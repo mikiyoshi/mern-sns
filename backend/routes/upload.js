@@ -27,6 +27,16 @@ const upload = multer({ storage: storage });
 router.post('/', upload.single('file'), (req, res) => {
   try {
     console.log('file: ', req.file);
+    // file:  {
+    //   fieldname: 'file',
+    //   originalname: 'img03.jpg',
+    //   encoding: '7bit',
+    //   mimetype: 'image/jpeg',
+    //   destination: 'public/images/',
+    //   filename: '1652464850731img03.jpg',
+    //   path: 'public/images/1652464850731img03.jpg',
+    //   size: 231971
+    // }
     return res.status(200).json('success image upload');
   } catch (err) {
     console.log(err);

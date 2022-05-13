@@ -1,11 +1,16 @@
 const express = require('express');
+
+const app = express();
+
+// Uploading Images – Express and React
+// https://sammeechward.com/uploading-images-express-and-react/
+
+// sample
+
 // const fs = require('fs');
 // const multer = require('multer');
 
 // const upload2 = multer({ dest: 'img/' });
-
-const app = express();
-
 // app.get('/api/img/:imageName', (req, res) => {
 //   const imageName = req.params.imageName;
 //   const readStream = fs.createReadStream(`img/${imageName}`);

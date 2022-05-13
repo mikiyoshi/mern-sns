@@ -35,6 +35,10 @@ export default function Share() {
         const data = new FormData();
         data.append('name', fileName);
         data.append('file', file);
+        // Multipart: Boundary エラー >> fix for update version from "axios": "^0.27.1", to "^0.27.2",
+        // https://stackoverflow.com/questions/71289259/error-multipart-boundary-not-found-axios-request-react-native
+        // Uploading Images – Express and React
+        // https://sammeechward.com/uploading-images-express-and-react/
         await axios.post('/upload', data, {
           headers: {
             'Content-Type': 'multipart/form-data',
@@ -57,7 +61,7 @@ export default function Share() {
     <div className="share">
       <div className="shareWrapper">
         <div>
-          <form
+          {/* <form
             method="POST"
             action="http://localhost:5000/api/upload/"
             enctype="multipart/form-data"
@@ -65,7 +69,7 @@ export default function Share() {
             <input type="file" name="file" />
             <br />
             <input type="submit" value="アップロード" />
-          </form>
+          </form> */}
         </div>
         <div className="shareTop">
           <img
