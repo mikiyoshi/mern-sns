@@ -11,7 +11,9 @@ const app = express();
 // const multer = require('multer');
 
 // const upload2 = multer({ dest: 'img/' });
-// app.get('/api/img/:imageName', (req, res) => {
+// ここはいつでもルートから保存場所確定
+
+// app.get('/api/img/:imageName', (req, res) => { // /api/img/:imageName に注意
 //   const imageName = req.params.imageName;
 //   const readStream = fs.createReadStream(`img/${imageName}`);
 //   readStream.pipe(res);

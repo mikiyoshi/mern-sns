@@ -35,10 +35,12 @@ export default function Share() {
         const data = new FormData();
         data.append('name', fileName);
         data.append('file', file);
-        // Multipart: Boundary エラー >> fix for update version from "axios": "^0.27.1", to "^0.27.2",
+        // Error: Multipart: Boundary not found エラー >> fix for update version from "axios": "^0.27.1", to "^0.27.2",
         // https://stackoverflow.com/questions/71289259/error-multipart-boundary-not-found-axios-request-react-native
         // Uploading Images – Express and React
         // https://sammeechward.com/uploading-images-express-and-react/
+        // 同じ階層にデータを送る場合と、違う場所へ送る場合で変更が必要
+        //
         await axios.post('/upload', data, {
           headers: {
             'Content-Type': 'multipart/form-data',
