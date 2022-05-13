@@ -1,10 +1,28 @@
 const express = require('express');
+// const fs = require('fs');
+// const multer = require('multer');
+
+// const upload2 = multer({ dest: 'img/' });
+
 const app = express();
+
+// app.get('/api/img/:imageName', (req, res) => {
+//   const imageName = req.params.imageName;
+//   const readStream = fs.createReadStream(`img/${imageName}`);
+//   readStream.pipe(res);
+// });
+
+// app.post('/api/img', upload2.single('image2'), (req, res) => {
+//   const imagePath = req.file.path;
+//   console.log(imagePath);
+//   res.send({ imagePath });
+// });
 
 const userRoute = require('./routes/users');
 const authRoute = require('./routes/auth');
 const postRoute = require('./routes/posts');
 const uploadRoute = require('./routes/upload');
+const testRoute = require('./routes/test');
 
 const PORT = 5000;
 // import axios in Frontend
@@ -40,6 +58,7 @@ app.use('/api/users', userRoute); // end point
 app.use('/api/auth', authRoute); // end point
 app.use('/api/posts', postRoute); // end point
 app.use('/api/upload', uploadRoute); // end point
+app.use('/api/test', testRoute); // end point
 
 // refactoring to middleware
 // app.get('/', (req, res) => {
@@ -51,4 +70,7 @@ app.use('/api/upload', uploadRoute); // end point
 //   res.send('users express');
 // });
 
-app.listen(PORT, () => console.log('start server'));
+app.listen(PORT, () => {
+  const url = `http://localhost:${PORT}/`;
+  console.log(`start server ${PORT}`);
+});

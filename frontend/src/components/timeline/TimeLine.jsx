@@ -3,6 +3,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../../state/AuthContext';
 import Post from '../post/Post';
 import Share from '../share/Share';
+import Test from '../test/Test';
 import './TimeLine.css';
 // import { Posts } from '../../dummyData'; // import from backend "proxy": "http:localhost:5000/api"
 
@@ -19,7 +20,11 @@ export default function TimeLine({ username }) {
         ? await axios.get(`/posts/profile/${username}`) // if there are username = profile page プロフィールページの場合
         : await axios.get(`/posts/timeline/${user._id}`); // 62657f2c2101d4a8b995e88c is from mongoDB realsns > users > Nick _id:  This is Home page ホームページの場合
       console.log('Timeline.jsx: ', response); // Promise {} < this error is waiting, we need await async in frontend  //  Promise {} はデータを受け取っている待ち時間を表示するエラー
-      setPosts(response.data);
+      setPosts(
+        response.data.sort((post1, post2) => {
+          return new Date(post2.createdAt) - new Date(post1.createdAt); // this is post sort by Date
+        })
+      );
     };
     fetchPosts();
   }, [username, user._id]); // username, user._id どちらが変更されても更新される
@@ -37,6 +42,7 @@ export default function TimeLine({ username }) {
   return (
     <div className="timeline">
       <div className="timelineWrapper">
+        <Test />
         <Share />
         {/* {Posts.map((post) => (
           <Post post={post} key={post.id} />

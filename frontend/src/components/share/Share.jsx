@@ -22,13 +22,24 @@ export default function Share() {
 
     if (file) {
       console.log('XXXXXXXXX Share.jsx: ', file);
-      const data = new FormData(); // this is get input form data, data is Object {key: value}
+      // const data = new FormData(); // this is get input form data, data is Object {key: value}
       const fileName = Date.now() + file.name; // we don't make same file name, cos if same file name has error // Date.now() is get a date and time
-      data.append('name', fileName); // { name: fileName }
-      data.append('file', file); // { file: file }
+      // data.append('name', fileName); // { name: fileName }
+      // data.append('file', file); // { file: file }
       newPost.img = fileName; // { img: fileName}
       try {
-        await axios.post('/upload', data);
+        // console.log('DDDDDDDDDD Share.jsx: ', ...data.entries());
+        // console.log('DDDDDDDDDD Share.jsx: ', data.get('name'));
+        // console.log('DDDDDDDDDD Share.jsx: ', data.get('file'));
+        // await axios.post('/upload', ...data.entries());
+        const data = new FormData();
+        data.append('name', fileName);
+        data.append('file', file);
+        await axios.post('/upload', data, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
       } catch (err) {
         console.log('file get error', err);
       }
@@ -45,6 +56,17 @@ export default function Share() {
   return (
     <div className="share">
       <div className="shareWrapper">
+        <div>
+          <form
+            method="POST"
+            action="http://localhost:5000/api/upload/"
+            enctype="multipart/form-data"
+          >
+            <input type="file" name="file" />
+            <br />
+            <input type="submit" value="アップロード" />
+          </form>
+        </div>
         <div className="shareTop">
           <img
             // src="/assets/person/1.jpeg"
@@ -78,7 +100,8 @@ export default function Share() {
               <input
                 type="file"
                 id="file"
-                accept=".png, .jpg, .jpeg"
+                name="file"
+                accept=".png, .jpeg, .jpg"
                 style={{ display: 'none' }}
                 onChange={(e) => setFile(e.target.files[0])}
               />

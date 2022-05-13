@@ -31,7 +31,7 @@ export default function Post({ post }) {
       // this is old backend using by router.get('/:id', async (req, res)
       // this is new back end using query
       const response = await axios.get(`/users?userId=${post.userId}`);
-      console.log('Profile.jsx', response);
+      // console.log('Profile.jsx', response);
       setUser(response.data);
     };
     fetchUser();
@@ -82,7 +82,11 @@ export default function Post({ post }) {
         <div className="postCenter">
           <span className="postText">{post.desc}</span>
           {/* <img src={PUBLIC_FOLDER + post.photo} alt="" className="postImg" /> post.photo is dummy data */}
-          <img src={PUBLIC_FOLDER + post.img} alt="" className="postImg" />
+          <img
+            src={PUBLIC_FOLDER + '/' + post.img}
+            alt=""
+            className="postImg"
+          />
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">
